@@ -24,8 +24,10 @@ const HomePageStyle = StyleSheet.create({
           paddingBottom: 50, 
         },  
         welcomeDisplay: {
+          margin: 10, 
+          paddingTop: 20, 
           textAlign: 'center',
-          fontSize: 25, 
+          fontSize: 30, 
           color: 'white',
         },  
         displayText: {  

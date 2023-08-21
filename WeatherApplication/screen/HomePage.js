@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Button, Image } from 'react-native';
 import HomeStyle from '../styles/HomePageStyle';
+import * as Location from 'expo-location';
 
 
 const HomePage = () => {
 
     const apiKey = "978a102bdc119ce813158022ca7c3def";
+
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+
     const [dataWeather, setDataWeather] = useState([{}]);
     const [cityName, setCityName] = useState("");
 
@@ -31,10 +36,45 @@ const HomePage = () => {
         returnWeather(mockEvent); 
         console.log('Button pressed with input value: ', cityName);
     }
-  
-    return (
 
-        
+    useEffect(() => {
+        (async() => {
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if(status !== 'granted'){
+                setErrorMsg("Permission Denied");
+                return; 
+            }
+            
+            let loc = await Location.getCurrentPositionAsync();
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=${apiKey}`, {
+                method: "POST",
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json);
+                setLocation(json);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        })();
+    }, []);
+
+    // if(errorMsg !== null){
+
+    // } else if (location !== null){
+
+    // } else {
+         
+    // }
+  
+    return (        
         <View
             style={HomeStyle.homeContainer}
         >
@@ -76,15 +116,21 @@ const HomePage = () => {
 
             <View style={HomeStyle.secondDisplay}>
                 <Text style={HomeStyle.displayTitle}>
-                    Last city weather
+                    {location.name}
                 </Text>
+                <Image 
+                    source={{
+                        uri:`https://openweathermap.org/img/wn/${location.weather[0].icon}@2x.png`
+                    }}
+                    style={{width: 50, height: 50, alignSelf: 'center'}}
+                />
                 <Text
                     style={HomeStyle.secondWeatherDisplay}
                 >
-                    temperature
+                    {location.main.temp} °F
                 </Text>
                 <Text style={HomeStyle.descBox}>
-                    Description
+                    {location.weather[0].description}
                 </Text>
             </View>
 
