@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const HomePageStyle = StyleSheet.create({
+const CityTrackerStyles = StyleSheet.create({
         homeContainer: {
           flex: 1,
           backgroundColor: '#043652',
@@ -15,8 +15,16 @@ const HomePageStyle = StyleSheet.create({
           borderColor: 'gray', 
           minWidth: 300,
           padding: 10,
+          marginBottom: 20, 
           textAlign: 'center',
 
+        },  
+        submitBtn: {
+          borderWidth: 1,        
+          borderColor: 'black',   
+          padding: 10,            
+          borderRadius: 5, 
+          backgroundColor: 'white'
         },
         displayInfo: {
           margin: 50,
@@ -66,4 +74,4 @@ const HomePageStyle = StyleSheet.create({
       
 });
 
-export default HomePageStyle;
+export default CityTrackerStyles;
