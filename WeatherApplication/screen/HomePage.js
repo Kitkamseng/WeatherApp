@@ -11,6 +11,7 @@ import { View,
 } from 'react-native';
 import CityTracker from '../components/CityTracker';
 import HomeStyles from '../styles/HomePageStyles';
+import CurrentLocation from '../components/CurrentLocation';
 
 
 const listTab = [
@@ -24,7 +25,7 @@ const listTab = [
 
 const HomePage = () => {
     
-    const [status, setStatus] = useState ('City')
+    const [status, setStatus] = useState ('Location')
     const setStatusFilter = status => {
         setStatus(status);
     }
@@ -54,9 +55,11 @@ const HomePage = () => {
             {
                 status === 'City' && <CityTracker /> 
             }
-            {/* {
-                status === 'Location' && <LocationTracker /> 
-            } */}
+
+            {
+                status === 'Location' && <CurrentLocation /> 
+            } 
+
         </SafeAreaView> 
     );
   };

@@ -45,23 +45,23 @@ const CityTracker = () => {
                 return; 
             }
             
-            let loc = await Location.getCurrentPositionAsync();
+            // let loc = await Location.getCurrentPositionAsync();
 
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=${apiKey}`, {
-                method: "POST",
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((res) => res.json())
-            .then((json) => {
-                console.log(json);
-                setLocation(json);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=${apiKey}`, {
+            //     method: "POST",
+            //     headers: {
+            //         Accept: 'application/json',
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // .then((res) => res.json())
+            // .then((json) => {
+            //     console.log(json);
+            //     setLocation(json);
+            // })
+            // .catch((error) => {
+            //     console.log(error);
+            // });
 
         })();
     }, []);
@@ -77,7 +77,7 @@ const CityTracker = () => {
                     <Text
                         style={CityTrackerStyles.welcomeDisplay}   
                     >
-                        Welcome to the Weather App! Enter a city name to get the weather
+                        Welcome to the Weather App! {"\n"} {"\n"}Enter a city name to get the weather
                     </Text>
                 ) : (
                     <View>
@@ -107,25 +107,7 @@ const CityTracker = () => {
                 onPress={handleSubmit} 
             />
 
-            {/* <View style={CityTrackerStyles.secondDisplay}>
-                <Text style={CityTrackerStyles.displayTitle}>
-                    {location.name}
-                </Text>
-                <Image 
-                    source={{
-                        uri:`https://openweathermap.org/img/wn/${location.weather[0].icon}@2x.png`
-                    }}
-                    style={{width: 50, height: 50, alignSelf: 'center'}}
-                />
-                <Text
-                    style={CityTrackerStyles.secondWeatherDisplay}
-                >
-                    {location.main.temp} °F
-                </Text>
-                <Text style={CityTrackerStyles.descBox}>
-                    {location.weather[0].description}
-                </Text>
-            </View> */}
+
             
         </View>
     );
