@@ -16,7 +16,8 @@ const HomePageStyles = StyleSheet.create({
         width: Dimensions.get('window').width / 2.5, 
         flexDirection: 'row',
         borderWidth: 0.5, 
-        borderColor: '#EBEBEB', 
+        borderColor: 'black', 
+        backgroundColor: 'lightgrey',
         borderRadius: 20,
         padding: 10, 
         margin: 10,
@@ -25,7 +26,7 @@ const HomePageStyles = StyleSheet.create({
       },
       textTab: {
         fontSize: 16, 
-        color: 'white',
+        color: 'black',
       },
       btnTabActive: {
         backgroundColor: '#D3D3D3',

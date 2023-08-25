@@ -34,8 +34,28 @@ const CurrentLocationStyles = StyleSheet.create({
         textTransform: 'uppercase',     
     },
     waitingDisplay: {
+        marginTop: 50, 
         fontSize: 20, 
         color: 'white',
+    },
+    displayInfoBox: {
+        minWidth: 300, 
+        margin: 20, 
+        borderWidth: 0.5, 
+        borderColor: 'black', 
+        backgroundColor: 'lightgrey',
+        borderRadius: 20, 
+    },
+    displayInfoTitle: {
+        fontSize: 20, 
+        margin: 15, 
+    },
+    displayTimeZone: {
+        margin: 15, 
+    },
+    displaySmallInfo: {
+        textTransform: 'uppercase',
+        margin: 15, 
     }
 
 
