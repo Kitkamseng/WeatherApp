@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Image } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import CityTrackerStyles from '../styles/CityTrackerStyles';
 import * as Location from 'expo-location';
 
@@ -11,9 +11,18 @@ const CityTracker = () => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
+    const [isCelsius, setIsCelsius] = useState(false); 
+
+
     const [dataWeather, setDataWeather] = useState([{}]);
     const [cityName, setCityName] = useState("");
 
+
+    const toggleTempSetting = () => {
+        setIsCelsius(prevState => !prevState);
+    }
+
+    const tempConvert = dataWeather && dataWeather.main ?  (isCelsius ? ((dataWeather.main.temp - 32) * 5) /9 : dataWeather.main.temp) : null;
 
     const returnWeather = (event) => {
         if(event.key == "Enter") {
@@ -84,9 +93,15 @@ const CityTracker = () => {
                         <Text style={CityTrackerStyles.displayText}>
                             {dataWeather.name}
                         </Text>
-                        <Text style={CityTrackerStyles.displayText}>
-                            {Math.round(dataWeather.main.temp)} °F
-                        </Text>
+                        <TouchableOpacity
+                            onPress={toggleTempSetting}
+                        >
+                            <Text
+                                style={CityTrackerStyles.displayText}
+                            >
+                                {tempConvert !== null ? tempConvert.toFixed(1): "Loading..."} {isCelsius ? '°C' : '°F'} 
+                            </Text>
+                        </TouchableOpacity>
                         <Text style={CityTrackerStyles.displayText}>
                             {dataWeather.weather[0].main}
                         </Text>

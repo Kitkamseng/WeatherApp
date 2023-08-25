@@ -15,6 +15,14 @@ const CurrentLocation = () => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
+    const [isCelsius, setIsCelsius] = useState(false); 
+
+    const toggleTempSetting = () => {
+        setIsCelsius(prevState => !prevState);
+    }
+
+    const tempConvert = location && location.main ? (isCelsius ? ((location.main.temp - 32) * 5) / 9 : location.main.temp) : null;
+
     const handleDisplayPage = () => {
         navigation.navigate("CLDisplay");
     }
@@ -70,9 +78,13 @@ const CurrentLocation = () => {
                     }}
                     style={CurrentLocationStyles.displayIcon}
                 />
-                <Text style={CurrentLocationStyles.mainTempDisplay}>
-                    {location.main.temp} °F
-                </Text>
+                <TouchableOpacity
+                    onPress={toggleTempSetting}
+                >
+                    <Text style={CurrentLocationStyles.mainTempDisplay}>
+                       {tempConvert !== null ? tempConvert.toFixed(1) : 'Loading...'} {isCelsius ? '°C' : '°F'}
+                    </Text>
+                </TouchableOpacity>
                 <Text style={CurrentLocationStyles.weatherDes}>
                     {location.weather[0].description}
                 </Text>
