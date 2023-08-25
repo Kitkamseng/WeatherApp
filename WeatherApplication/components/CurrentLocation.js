@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Image } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import CityTrackerStyles from '../styles/CityTrackerStyles';
 import CurrentLocationStyles from '../styles/CurrentLocationStyles'; 
 import * as Location from 'expo-location';
+import CLDisplayPage from '../screen/CLDisplayPage';
 
 
 const CurrentLocation = () => {
 
     const apiKey = "978a102bdc119ce813158022ca7c3def";
+    const navigation = useNavigation();
 
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
+    const handleDisplayPage = () => {
+        navigation.navigate("CLDisplay");
+    }
 
     useEffect(() => {
         (async() => {
@@ -70,6 +76,23 @@ const CurrentLocation = () => {
                 <Text style={CurrentLocationStyles.weatherDes}>
                     {location.weather[0].description}
                 </Text>
+
+                <TouchableOpacity
+                    onPress={handleDisplayPage}
+                    style={CurrentLocationStyles.displayInfoBox}
+                >
+                    <Text style={CurrentLocationStyles.displayInfoTitle}>
+                        {location.name}
+                    </Text>
+                    <Text style={CurrentLocationStyles.displayTimeZone}>
+                        Timezone: {location.timezone}
+                    </Text>
+                    <Text style={CurrentLocationStyles.displaySmallInfo}> 
+                        {location.weather[0].description}
+                        {"\n"}
+                        {location.weather[0].main}
+                    </Text>
+                </TouchableOpacity>
             </View>
 
         );
