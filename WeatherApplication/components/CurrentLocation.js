@@ -13,6 +13,7 @@ const CurrentLocation = () => {
     const navigation = useNavigation();
 
     const [location, setLocation] = useState(null);
+    const [disLocation, setDisLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const [isCelsius, setIsCelsius] = useState(false); 
@@ -24,7 +25,7 @@ const CurrentLocation = () => {
     const tempConvert = location && location.main ? (isCelsius ? ((location.main.temp - 32) * 5) / 9 : location.main.temp) : null;
 
     const handleDisplayPage = () => {
-        navigation.navigate("CLDisplay");
+        navigation.navigate("CLDisplay", { location });
     }
 
     useEffect(() => {
@@ -47,6 +48,7 @@ const CurrentLocation = () => {
             .then((res) => res.json())
             .then((json) => {
                 console.log(json);
+                // setDisLocation(json);
                 setLocation(json);
             })
             .catch((error) => {
