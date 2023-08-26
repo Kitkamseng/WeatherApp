@@ -43,7 +43,7 @@ const CurrentLocationStyles = StyleSheet.create({
         margin: 20, 
         borderWidth: 0.5, 
         borderColor: 'black', 
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         borderRadius: 20, 
     },
     displayInfoTitle: {
