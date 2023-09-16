@@ -3,7 +3,7 @@
 In this folder, it contains the source code to my Weather Application that I have developed.
 Please follow the steps to run the application in expo:
 
-========================================= Steps to follow ==============================================
+====================== Steps to follow ===========================
 Step 1:
 Extract the folder (WeatherApp)
 
@@ -29,9 +29,9 @@ Note:
 If you are unable to run the program or some issue occurred, you can try restarting the program or IDE and
 rerun the terminal.
 
-========================================= Steps to follow ==============================================
+========================== Steps to follow ==============================
 
-============================================ Navigation =================================================
+============================ Navigation =================================
 
 Navigation:
 Once you are in the program and you have successfully open the app in a iOS system, there are 2 things you can do
@@ -51,4 +51,4 @@ location's weather report.
 you will be redirected to another information page
 #2.3 The map shown in the app will display your current location as well as displaying the weather's information down below.
 
-============================================ Navigation =================================================
+======================= Navigation =========================
