@@ -9,19 +9,21 @@ import CLDisplayPage from '../screen/CLDisplayPage';
 
 const CurrentLocation = () => {
 
+    //Fetching of API key from OpenWeatherMap
     const apiKey = "978a102bdc119ce813158022ca7c3def";
     const navigation = useNavigation();
 
     const [location, setLocation] = useState(null);
-    const [disLocation, setDisLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const [isCelsius, setIsCelsius] = useState(false); 
 
+    //Using UseState to convert temperature
     const toggleTempSetting = () => {
         setIsCelsius(prevState => !prevState);
     }
 
+    //Using location to calculate the temperature and do conversion
     const tempConvert = location && location.main ? (isCelsius ? ((location.main.temp - 32) * 5) / 9 : location.main.temp) : null;
 
     const handleDisplayPage = () => {
@@ -30,14 +32,17 @@ const CurrentLocation = () => {
 
     useEffect(() => {
         (async() => {
+            // Requesting permission from user to track location
             let {status} = await Location.requestForegroundPermissionsAsync();
             if(status !== 'granted'){
                 setErrorMsg("Permission Denied");
                 return; 
             }
             
+            //set loc to get Location's detail
             let loc = await Location.getCurrentPositionAsync();
 
+            //Fetching weather data using the latitude and longitude
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=${apiKey}`, {
                 method: "POST",
                 headers: {
@@ -48,7 +53,7 @@ const CurrentLocation = () => {
             .then((res) => res.json())
             .then((json) => {
                 console.log(json);
-                // setDisLocation(json);
+                //Return data as a json and set it into a useState()
                 setLocation(json);
             })
             .catch((error) => {
