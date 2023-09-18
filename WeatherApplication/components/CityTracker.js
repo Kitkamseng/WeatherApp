@@ -6,9 +6,9 @@ import * as Location from 'expo-location';
 
 const CityTracker = () => {
 
+    //Storing API key from OpenWeatherMap
     const apiKey = "978a102bdc119ce813158022ca7c3def";
 
-    const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const [isCelsius, setIsCelsius] = useState(false); 
@@ -17,15 +17,17 @@ const CityTracker = () => {
     const [dataWeather, setDataWeather] = useState([{}]);
     const [cityName, setCityName] = useState("");
 
-
+    //Using UseState to convert temperature
     const toggleTempSetting = () => {
         setIsCelsius(prevState => !prevState);
     }
 
+    //Using location to calculate the temperature and do conversion
     const tempConvert = dataWeather && dataWeather.main ?  (isCelsius ? ((dataWeather.main.temp - 32) * 5) /9 : dataWeather.main.temp) : null;
 
     const returnWeather = (event) => {
         if(event.key == "Enter") {
+            //Fetching weather data using the City Name and API Key
             fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
                 .then(res => res.json()
                 ).then(
@@ -40,6 +42,7 @@ const CityTracker = () => {
         }
     }
 
+    //Handles the search bar
     const handleSubmit = () => {
         const mockEvent = { key: 'Enter' };
         returnWeather(mockEvent); 
@@ -53,24 +56,6 @@ const CityTracker = () => {
                 setErrorMsg("Permission Denied");
                 return; 
             }
-            
-            // let loc = await Location.getCurrentPositionAsync();
-
-            // fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=${apiKey}`, {
-            //     method: "POST",
-            //     headers: {
-            //         Accept: 'application/json',
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then((res) => res.json())
-            // .then((json) => {
-            //     console.log(json);
-            //     setLocation(json);
-            // })
-            // .catch((error) => {
-            //     console.log(error);
-            // });
 
         })();
     }, []);

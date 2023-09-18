@@ -14,6 +14,7 @@ import HomeStyles from '../styles/HomePageStyles';
 import CurrentLocation from '../components/CurrentLocation';
 
 
+//Set the status value
 const listTab = [
     {
         status: 'City'
@@ -25,18 +26,18 @@ const listTab = [
 
 const HomePage = () => {
     
+    //Setting default page to Location 
     const [status, setStatus] = useState ('Location')
+
+    //This will update the state to Location or City depending on the user
     const setStatusFilter = status => {
         setStatus(status);
     }
   
     return (      
-        <SafeAreaView 
-            style={HomeStyles.mainContainer}
-        > 
-            <View 
-                style={HomeStyles.listTab}
-            >
+        <SafeAreaView style={HomeStyles.mainContainer}> 
+            <View style={HomeStyles.listTab}>
+                {/* Mapping the tabs using mapping. */}
                 {
                     listTab.map(e => (
                         <TouchableOpacity 
